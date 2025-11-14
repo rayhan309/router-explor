@@ -5,10 +5,15 @@ import Home from './Home.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import About from './Pages/About.jsx';
 import RootLayout from './Components/RootLayout/RootLayout.jsx';
+import Contacts from './Pages/Contacts.jsx';
+import CardDetailes from './Pages/CardDetailes.jsx';
+import Spinner from './Components/Spinner/Spinner.jsx';
+import AddCard from './Pages/AddCard.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
+    hydrateFallbackElement: <Spinner></Spinner>,
     children: [
       {
         index: true,
@@ -21,6 +26,19 @@ const router = createBrowserRouter([
       {
         path: '/About',
         Component: About
+      },
+      {
+        path: '/Contacts',
+        Component: Contacts
+      },
+      {
+        path: '/card-detailes/:id',
+        loader: ({ params }) => fetch(`https://openapi.programming-hero.com/api/plant/${params.id}`),
+          Component: CardDetailes
+      },
+      {
+        path: '/addCard',
+        Component: AddCard
       }
     ],
     Component: RootLayout

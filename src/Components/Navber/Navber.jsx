@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
+import Thims from '../Thims/Thims';
+import { Card } from '../RootLayout/RootLayout';
+// import { ShoppingCart } from 'lucide';
 
 const Navber = () => {
+
+    const {cart} = use(Card)
+    console.log(cart)
+
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -12,15 +19,9 @@ const Navber = () => {
                     <ul
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <a>Parent</a>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
+                        <li><Link to='/Home'>Home</Link></li>
+                        <li><Link to='/About'>About</Link></li>
+                        <li><Link to='/Contacts'>Contacts</Link></li>
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">daisyUI</a>
@@ -29,11 +30,15 @@ const Navber = () => {
                 <ul className="menu menu-horizontal px-1">
                     <li><Link to='/Home'>Home</Link></li>
                     <li><Link to='/About'>About</Link></li>
-            
+                    <li><Link to='/Contacts'>Contacts</Link></li>
+                    <li>
+                        <Link to='/addCard'><div className='flex items-center gap-1.5'><p>{cart.length}</p><p>add card</p></div></Link></li>
+
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <Thims></Thims>
+                {/* <ShoppingCart></ShoppingCart> */}
             </div>
         </div>
     );

@@ -1,17 +1,33 @@
 import Navber from '../Navber/Navber';
 import Footer from '../Footer/Footer';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigation } from 'react-router';
+import { ToastContainer } from 'react-toastify';
+import Spinner from '../Spinner/Spinner';
+import { createContext, useState } from 'react';
+
+export const Card = createContext({})
 
 const RootLayout = () => {
+
+    const [cart, setCart] = useState([])
+
+    let navigation = useNavigation()
+    // console.log(navigation?.state)
+
     return (
-        <div>
+        <Card.Provider value={{cart, setCart}}>
             <Navber></Navber>
-            <div className='min-h-[calc(100vh-285px)]'>
-                <p>parents</p>
-                <Outlet></Outlet>
-            </div>
+            {
+                navigation?.state === 'loading' 
+                ? <Spinner /> 
+                : <div className='min-h-[calc(100vh-285px)]'>
+                    <Outlet></Outlet>
+                </div>
+            }
             <Footer></Footer>
-        </div>
+
+            <ToastContainer />
+        </Card.Provider>
     );
 };
 
